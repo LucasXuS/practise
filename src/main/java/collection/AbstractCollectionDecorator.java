@@ -2,6 +2,7 @@ package collection;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Iterator;
 
 /**
  * 装饰器模式，装饰Collection类，去提供一系列的新的行为。
@@ -13,7 +14,8 @@ import java.util.Collection;
  * 但是，这样有可能不太会如我们所愿。比如，如果你试图去写一个不可变的implementation。极有可能会产生漏洞。
  *
  * 这个函数对Object类两个重要的函数 hashCode() 和 equals() 没有任何修改，它将依赖于其他类后续的继承和implementation.
- * w
+ *
+ *
  */
 public abstract class AbstractCollectionDecorator<E>
     implements Collection<E>, Serializable{
@@ -54,6 +56,65 @@ public abstract class AbstractCollectionDecorator<E>
         return collection;
     }
 
+    /**
+     * 设置集合。
+     * @param coll 被装饰的集合。
+     * */
+    protected void setCollection(final Collection<E> coll){
+        this.collection = coll;
+    }
+
+    //--------------------------------------------------------------------
 
 
+    @Override
+    public boolean add(final E object) {
+        return decorated().add(object);
+    }
+
+    @Override
+    public boolean addAll(final Collection<? extends E> coll){
+        return decorated().addAll(coll);
+    }
+
+
+    @Override
+    public void clear() {
+        decorated().clear();
+    }
+
+    @Override
+    public boolean contains(final Object object) {
+        return decorated().contains(object);
+    }
+
+    @Override
+    public boolean isEmpty(){
+        return decorated().isEmpty();
+    }
+
+    @Override
+    public Iterator<E> iterator(){
+        return decorated().iterator();
+    }
+
+    @Override
+    public boolean remove(final Object object){
+        return decorated().remove(object);
+    }
+
+    @Override
+    public int size(){
+        return decorated().size();
+    }
+
+    @Override
+    public Object[] toArray(){
+        return decorated().toArray();
+    }
+
+    @Override
+    public <T> T[] toArray(final T[] object){
+        return decorated().toArray(object);
+    }
 }
