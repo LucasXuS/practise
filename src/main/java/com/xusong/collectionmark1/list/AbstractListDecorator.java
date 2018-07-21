@@ -1,11 +1,10 @@
-package list;
+package com.xusong.collectionmark1.list;
 
-import collection.AbstractCollectionDecorator;
+import com.xusong.collectionmark1.collection.AbstractCollectionDecorator;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.ListIterator;
-
 public abstract class AbstractListDecorator<E> extends AbstractCollectionDecorator<E>
         implements List<E> {
 

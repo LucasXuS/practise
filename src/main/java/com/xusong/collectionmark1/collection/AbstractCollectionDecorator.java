@@ -1,4 +1,4 @@
-package collection;
+package com.xusong.collectionmark1.collection;
 
 import java.io.Serializable;
 import java.util.Collection;

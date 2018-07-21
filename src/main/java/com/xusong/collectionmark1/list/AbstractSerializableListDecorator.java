@@ -1,4 +1,5 @@
-package list;
+package com.xusong.collectionmark1.list;
+
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
