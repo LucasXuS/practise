@@ -14,9 +14,6 @@ import java.util.Iterator;
  * 但是，这样有可能不太会如我们所愿。比如，如果你试图去写一个不可变的implementation。极有可能会产生漏洞。
  * <p>
  * 这个函数对Object类两个重要的函数 hashCode() 和 equals() 没有任何修改，它将依赖于其他类后续的继承和implementation.
- *
- *
- *
  */
 public abstract class AbstractCollectionDecorator<E>
         implements Collection<E>, Serializable {
