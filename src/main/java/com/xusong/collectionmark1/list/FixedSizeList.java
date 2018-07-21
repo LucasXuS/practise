@@ -2,6 +2,7 @@ package com.xusong.collectionmark1.list;
 
 import com.xusong.collectionmark1.BoundedCollection;
 import com.xusong.collectionmark1.iterator.AbstractListIteratorDecorator;
+import com.xusong.collectionmark1.iterator.UnmodifiableIterator;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -58,7 +59,7 @@ public class FixedSizeList<E>
 
     @Override
     public Iterator<E> iterator() {
-        return super.iterator();
+        return UnmodifiableIterator.unmodifiableIterator(decorated().iterator());
     }
 
     @Override
@@ -105,19 +106,6 @@ public class FixedSizeList<E>
     public List<E> subList(int fromIndex, int toIndex) {
         return super.subList(fromIndex, toIndex);
     }
-
-
-    /*
-    * 需要改变的方法列表
-    * add * 2
-    * addAll * 2
-    * clear
-    * lastIndexOf
-    * remove * 2
-    * removeAll
-    * retainAll
-    * **/
-
 
     /*
     * 这个迭代器只允许通过set()来改变
