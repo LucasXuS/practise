@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Created by xusong on 2018/7/21.
  */
-public class AbstractSerializableListDecorator<E>
+public abstract class AbstractSerializableListDecorator<E>
         extends AbstractListDecorator<E> {
 
     protected AbstractSerializableListDecorator(final List<E> list) {
