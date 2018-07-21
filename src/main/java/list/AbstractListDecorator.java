@@ -57,6 +57,17 @@ public abstract class AbstractListDecorator<E> extends AbstractCollectionDecorat
 
 
     @Override
+    public int indexOf(final Object object) {
+        return decorated().indexOf(object);
+    }
+
+    @Override
+    public int lastIndexOf(final Object object) {
+        return decorated().lastIndexOf(object);
+    }
+
+
+    @Override
     public ListIterator<E> listIterator() {
         return decorated().listIterator();
     }
@@ -70,6 +81,11 @@ public abstract class AbstractListDecorator<E> extends AbstractCollectionDecorat
     @Override
     public E remove(final int index) {
         return decorated().remove(index);
+    }
+
+    @Override
+    public List<E> subList(final int fromIndex, final int toIndex) {
+        return decorated().subList(fromIndex, toIndex);
     }
 
 
