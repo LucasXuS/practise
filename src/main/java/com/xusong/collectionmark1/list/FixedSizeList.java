@@ -64,47 +64,48 @@ public class FixedSizeList<E>
 
     @Override
     public int lastIndexOf(Object object) {
-        return super.lastIndexOf(object);
+        return decorated().lastIndexOf(object);
     }
 
     @Override
     public ListIterator<E> listIterator() {
-        return super.listIterator();
+        return new FixedSizeListIterator(decorated().listIterator(0));
     }
 
     @Override
     public ListIterator<E> listIterator(int index) {
-        return super.listIterator(index);
+        return new FixedSizeListIterator(decorated().listIterator(index));
     }
 
     @Override
     public E remove(int index) {
-        return super.remove(index);
+        return decorated().remove(index);
     }
 
     @Override
     public boolean remove(Object object) {
-        return super.remove(object);
+        throw new UnsupportedOperationException("List is fixed size");
     }
 
     @Override
     public boolean removeAll(Collection<?> coll) {
-        return super.removeAll(coll);
+        throw new UnsupportedOperationException("List is fixed size");
     }
 
     @Override
     public boolean retainAll(Collection<?> coll) {
-        return super.retainAll(coll);
+        throw new UnsupportedOperationException("List is fixed size");
     }
 
     @Override
     public E set(int index, E object) {
-        return super.set(index, object);
+        return decorated().set(index, object);
     }
 
     @Override
     public List<E> subList(int fromIndex, int toIndex) {
-        return super.subList(fromIndex, toIndex);
+        final List<E> sub = decorated().subList(fromIndex, toIndex);
+        return new FixedSizeList<E>(sub);
     }
 
     /*
