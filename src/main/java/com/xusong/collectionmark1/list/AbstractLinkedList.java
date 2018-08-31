@@ -107,19 +107,21 @@ public abstract class AbstractLinkedList<E> implements List<E> {
     // 参数endMarkerAllowed，当其为true时可能返回header否则不会返回。作为protected函数，这是一个
     // 用于算法内部的getNode函数，而用户只能使用get(index)
     protected Node<E> getNode(final int index, final boolean endMarkerAllowed) {
+
+        final String exceptionPrefix = "Couldn't get the Node:index (";
         if (index < 0) {
-            throw new IndexOutOfBoundsException("Couldn't get the Node:" +
-                    "index (" + index + ") less than zero.");
+            throw new IndexOutOfBoundsException(exceptionPrefix +
+                    index + ") less than zero.");
         }
 
         if (!endMarkerAllowed && index == size) {
-            throw new IndexOutOfBoundsException("Couldn't get the Node:" +
-                    "index (" + index + ") is the size of the list.");
+            throw new IndexOutOfBoundsException(exceptionPrefix +
+                    index + ") is the size of the list.");
         }
 
         if (index > size) {
-            throw new IndexOutOfBoundsException("Couldn't get the Node:" +
-                    "index (" + index + ") is greater than the size of the" +
+            throw new IndexOutOfBoundsException(exceptionPrefix +
+                    index + ") is greater than the size of the" +
                     " list (" + size + ").");
         }
 
@@ -523,6 +525,8 @@ public abstract class AbstractLinkedList<E> implements List<E> {
         // 和modCount一起用，iterator在使用时不应该受到干扰。
         int expectedModCount;
 
+        //--------------------------------------------常用函数部---------------------------------------
+
         public LinkedListIterator(final AbstractLinkedList<E> parent, final int fromIndex) {
             this.parent = parent;
             this.current = null;
@@ -531,20 +535,19 @@ public abstract class AbstractLinkedList<E> implements List<E> {
             expectedModCount = parent.modCount;
         }
 
+        //---------------------------------------------------------------------------------------------
 
+        //--------------------------------------------常用函数部---------------------------------------
         protected void checkModCount() {
             if (expectedModCount != parent.modCount) {
                 throw new ConcurrentModificationException();
             }
         }
 
-        protected Node<E> getLastNodeReturned() {
-            if (current == null) {
-                throw new IllegalStateException();
-            }
-            return current;
-        }
+        //---------------------------------------------------------------------------------------------
 
+
+        //--------------------------------------------常用迭代器函数部----------------------------------
         @Override
         public boolean hasNext() {
             return next != parent.header;
@@ -594,7 +597,9 @@ public abstract class AbstractLinkedList<E> implements List<E> {
         public int previousIndex() {
             return nextIndex() - 1;
         }
+        //---------------------------------------------------------------------------------------------
 
+        //--------------------------------------------增删查改部---------------------------------------
         @Override
         public void remove() {
             checkModCount();
@@ -617,6 +622,17 @@ public abstract class AbstractLinkedList<E> implements List<E> {
             getLastNodeReturned().setValue(e);
         }
 
+        // 即返回当前指针，如果当前指针是Null(因为我们初始化迭代器会将current设置为null),那么抛出非法状态的异常
+        protected Node<E> getLastNodeReturned() {
+            if (current == null) {
+                throw new IllegalStateException();
+            }
+            return current;
+        }
+
+        // 当前指向元素改为e 也就是在当前Next之前放置元素
+        // 由于当前指向添加的元素，相当于当前的指向向后走了一个，那么索引会后移。
+        // 更新expectedModCount ，我们允许这样的操作。
         @Override
         public void add(final E e) {
             checkModCount();
@@ -625,6 +641,7 @@ public abstract class AbstractLinkedList<E> implements List<E> {
             nextIndex++;
             expectedModCount++;
         }
+        //---------------------------------------------------------------------------------------------
     }
 
 
@@ -639,7 +656,7 @@ public abstract class AbstractLinkedList<E> implements List<E> {
         // 和modCount一起用，保证在迭代的时候尺寸不会变
         int expectedModCount;
 
-
+        //---------------------------------------初始化和构造器部----------------------------------
         public LinkedSubList(AbstractLinkedList<E> parent, int fromIndex, int toIndex) {
             if (toIndex > parent.size()) {
                 throw new IndexOutOfBoundsException("toIndex = " + toIndex);
@@ -655,7 +672,9 @@ public abstract class AbstractLinkedList<E> implements List<E> {
             this.size = toIndex - fromIndex;
             this.expectedModCount = parent.modCount;
         }
+        //-----------------------------------------------------------------------------------------
 
+        //---------------------------------------操作查验部-----------------------------------------
         protected void rangeCheck(final int index, final int beyond) {
             if (index < 0 || index >= beyond) {
                 throw new IndexOutOfBoundsException("Index (" + index + ") out of bounds for size (" + beyond + ").");
@@ -667,6 +686,9 @@ public abstract class AbstractLinkedList<E> implements List<E> {
                 throw new ConcurrentModificationException();
             }
         }
+        //-------------------------------------------------------------------------------------------
+
+        //---------------------------------------添加部-----------------------------------------------
 
         @Override
         public void add(int index, E element) {
@@ -679,10 +701,8 @@ public abstract class AbstractLinkedList<E> implements List<E> {
         }
 
         @Override
-        public E set(final int index, final E element) {
-            rangeCheck(index, size);
-            checkModCount();
-            return parent.set(index + offset, element);
+        public boolean addAll(Collection<? extends E> c) {
+            return addAll(size, c);
         }
 
         @Override
@@ -700,10 +720,39 @@ public abstract class AbstractLinkedList<E> implements List<E> {
             LinkedSubList.this.modCount++;
             return true;
         }
+        //--------------------------------------------------------------------------------------------
+
+        //---------------------------------------删除部------------------------------------------------
+        @Override
+        public E remove(int index) {
+            rangeCheck(index, size);
+            checkModCount();
+            final E e = parent.remove(index + offset);
+            expectedModCount = parent.modCount;
+            LinkedSubList.this.modCount++;
+            size--;
+            return e;
+        }
 
         @Override
-        public boolean addAll(Collection<? extends E> c) {
-            return addAll(size, c);
+        public void clear() {
+            checkModCount();
+            Iterator<E> iterator = iterator();
+            while (iterator.hasNext()) {
+                // 从这段代码可以看出，迭代器最关心的还是Next，最长使用的也是next，这也是迭代器存在的意义。
+                iterator.next();
+                iterator.remove();
+            }
+        }
+
+        //---------------------------------------------------------------------------------------------
+
+        //------------------------------------------List基础函数部--------------------------------------
+        @Override
+        public E set(final int index, final E element) {
+            rangeCheck(index, size);
+            checkModCount();
+            return parent.set(index + offset, element);
         }
 
         @Override
@@ -721,26 +770,12 @@ public abstract class AbstractLinkedList<E> implements List<E> {
 
         @Override
         public List<E> subList(int fromIndex, int toIndex) {
-            return new LinkedSubList<E>(parent, fromIndex, toIndex);
+            return new LinkedSubList<>(parent, fromIndex, toIndex);
         }
+        //--------------------------------------------------------------------------------------------
 
-        @Override
-        public E remove(int index) {
-            rangeCheck(index, size);
-            checkModCount();
-            final E e = parent.remove(index + offset);
-            expectedModCount = parent.modCount;
-            LinkedSubList.this.modCount++;
-            size--;
-            return e;
-        }
 
-        @Override
-        public void clear() {
-
-            super.clear();
-        }
-
+        //--------------------------------------------迭代器部-----------------------------------------
         @Override
         public Iterator<E> iterator() {
             return parent.createSubListIterator(this);
@@ -750,6 +785,8 @@ public abstract class AbstractLinkedList<E> implements List<E> {
         public ListIterator<E> listIterator(int index) {
             return parent.createSubListIterator(this, index);
         }
+
+        //---------------------------------------------------------------------------------------------
 
     }
 
