@@ -2,6 +2,9 @@ package com.xusong.collectionmark1.list;
 
 import com.xusong.collectionmark1.OrderedIterator;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.lang.reflect.Array;
 import java.util.*;
 
@@ -506,6 +509,27 @@ public abstract class AbstractLinkedList<E> implements List<E> {
 
     private boolean isEqualValue(Object obj1, Object obj2) {
         return (obj1 == obj2) && (obj1 != null && obj1.equals(obj2));
+    }
+
+    //---------------------------------------------------------------------------------------------
+
+    //---------------------------------------序列化和反序列化部-------------------------------------
+
+    //序列化,将对象放在参数流里
+    protected void doWriteObject(final ObjectOutputStream outputStream) throws IOException {
+        outputStream.writeInt(size());
+        for (final E e : this) {
+            outputStream.writeObject(e);
+        }
+    }
+
+    //反序列化,将流里面的数据变成对象
+    protected void doReadObject(final ObjectInputStream inputStream) throws IOException, ClassNotFoundException {
+        init();
+        final int size = inputStream.readInt();
+        for (int i = 0; i < size; i++) {
+            add((E) inputStream.readObject());
+        }
     }
 
     //---------------------------------------------------------------------------------------------
