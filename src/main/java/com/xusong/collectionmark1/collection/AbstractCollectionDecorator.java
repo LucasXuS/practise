@@ -5,11 +5,12 @@ import java.util.Collection;
 import java.util.Iterator;
 
 
-// 在这里我们使用装饰器模式.我个人认为，这么做的方式不是为了扩展，而是为了控制容器的功能。最明显的，我们失去了set和get功能，我们只能通过迭代器去读取列表。
+// 在这里我们使用装饰器模式.其中把共性的函数提前设置好。
 public class AbstractCollectionDecorator<E> implements Collection<E>, Serializable {
 
     Collection<E> collection;
 
+    // 在真正使用的时候你会感觉到，这个初始化设置为protected很有用，因为我们无法从外部直接使用这个类了，我们只能依靠派生类的方式使用这个类。
     protected AbstractCollectionDecorator(final Collection<E> coll) throws NullPointerException {
         if (coll == null) {
             throw new NullPointerException("Collection must not be null");
