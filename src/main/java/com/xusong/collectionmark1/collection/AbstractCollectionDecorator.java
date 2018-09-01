@@ -6,7 +6,7 @@ import java.util.Iterator;
 
 
 // 在这里我们使用装饰器模式.其中把共性的函数提前设置好。
-public class AbstractCollectionDecorator<E> implements Collection<E>, Serializable {
+public abstract class AbstractCollectionDecorator<E> implements Collection<E>, Serializable {
 
     Collection<E> collection;
 
