@@ -40,4 +40,9 @@ public class SortTest {
         stringBuilder.append("]");
         System.out.println(stringBuilder.toString());
     }
+
+    @Test
+    public void test(){
+        System.out.print(0x8000 >>> 15);
+    }
 }
