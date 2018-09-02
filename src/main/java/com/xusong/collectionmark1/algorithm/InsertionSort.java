@@ -7,6 +7,9 @@ public class InsertionSort extends Sort {
         if (arr.length == 1) {
             return arr;
         }
+
+        // 每次可以分为两部分，前面部分是认为是排好序的，boundary插入到前面
+        // 前一部分，定下来，是元素个数，和元素内容定下来，而不是元素位置定下来。
         for (int i = 1; i < arr.length; i++) {
             insert(arr, i);
         }
@@ -28,6 +31,7 @@ public class InsertionSort extends Sort {
 
     private static void insert(Integer[] arr, int boundary) {
         int insertIndex = getInsertIndex(arr, boundary);
+        // 如果没找到，说明前面的元素都比目标元素小，意味着不需要插入操作。
         if (insertIndex != -1) {
             for (int i = boundary; i > insertIndex; i--) {
                 swap(arr, i, i - 1);
