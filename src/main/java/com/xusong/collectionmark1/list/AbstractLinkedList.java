@@ -526,7 +526,7 @@ public abstract class AbstractLinkedList<E> implements List<E> {
     //反序列化,将流里面的数据变成对象
     protected void doReadObject(final ObjectInputStream inputStream) throws IOException, ClassNotFoundException {
         init();
-        final int size = inputStream.readInt();
+        size = inputStream.readInt();
         for (int i = 0; i < size; i++) {
             add((E) inputStream.readObject());
         }
