@@ -1,5 +1,6 @@
 package com.xusong.collectionmark1.algorithm;
 
+import com.xusong.collectionmark1.trie.analyzer.StringKeyAnalyzer;
 import org.junit.Test;
 
 public class SortTest {
@@ -42,7 +43,13 @@ public class SortTest {
     }
 
     @Test
-    public void test(){
-        System.out.print(0x8000 >>> 15);
+    public void stringAnalyzerIsBitSetTest() {
+        String test = "hello";
+        for (int i = 0; i < test.length(); i++) {
+            System.out.println((Integer.toBinaryString((int) test.charAt(i))));
+        }
+        StringKeyAnalyzer analyzer = new StringKeyAnalyzer();
+        boolean isBitSet = analyzer.isBitSet(test, 11, analyzer.lengthInBits(test));
+        System.out.print(isBitSet);
     }
 }
