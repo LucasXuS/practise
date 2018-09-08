@@ -29,7 +29,7 @@ public class StringKeyAnalyzer extends KeyAnalyzer<String> {
 
     @Override
     public boolean isBitSet(String key, int bitIndex, int lengthInBits) {
-        if(key == null){
+        if (key == null) {
             throw new NullPointerException("the key must not be null！");
         }
 
@@ -47,6 +47,43 @@ public class StringKeyAnalyzer extends KeyAnalyzer<String> {
     @Override
     public boolean isPrefix(String prefix, int offsetInBits, int lengthBits, String key) {
         return false;
+    }
+
+    @Override
+    public int bitIndex(String key, int offsetInBits, int lengthInBits, String other, int otherOffsetInBits, int otherLengthInBits) {
+        if (offsetInBits % bitsPerElement() != 0 || otherLengthInBits % bitsPerElement() != 0
+                || lengthInBits % bitsPerElement() != 0 || otherLengthInBits % bitsPerElement() != 0) {
+            throw new IllegalArgumentException("The offsets and lengths must be at Character boundaries");
+        }
+        // 这个allNull是指所有的元素都是空
+        boolean allNull = true;
+        int beginIndex = offsetInBits / bitsPerElement();
+        int otherBeginIndex = otherOffsetInBits / bitsPerElement();
+        int endIndex = lengthInBits / bitsPerElement();
+        int otherEndIndex = otherLengthInBits / bitsPerElement();
+
+        int length = Integer.max(endIndex, otherBeginIndex);
+        char k, f = 0;
+        // 下面简要介绍一下
+        for (int i = 0; i < length; i++) {
+            int index = beginIndex + i;
+            int otherIndex = otherBeginIndex + i;
+            k = index >= endIndex ? 0 : key.charAt(index);
+            f = other == null || otherIndex >= otherEndIndex ? 0 : other.charAt(otherIndex);
+            // 只要有一次不为空，那么就不会返回全为空的标记
+            if (k > 0) {
+                allNull = false;
+            }
+            if (k != f) {
+                return Integer.numberOfLeadingZeros(k ^ f) + (i - 1) * bitsPerElement();
+            }
+        }
+        // 如果集合或者数组的所有元素都是0,那么返回全为空标记
+        if (allNull) {
+            return NULL_BIT_KEY;
+        }
+        // 能运行到这里，说明二者相等，返回相等标记
+        return EQUAL_BIT_KEY;
     }
 
 

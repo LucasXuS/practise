@@ -12,7 +12,7 @@ public abstract class KeyAnalyzer<K> implements Comparator<K>, Serializable {
     // 以下这些都是bit索引，众所周知，集合和数组的合法标记为0或以上的所有，那么0以下的完全可以做非法字符标记
     // 空指针标记
     protected static final int NULL_BIT_KEY = -1;
-    //
+    // 比较两个元素第一个不同的bit的索引，如果这两个相等，那么返回相等的标记
     protected static final int EQUAL_BIT_KEY = -2;
     // 超过范围的标记
     protected static final int OUT_OF_BOUNDS_BIT_KEY = -3;

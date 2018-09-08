@@ -52,4 +52,23 @@ public class SortTest {
         boolean isBitSet = analyzer.isBitSet(test, 11, analyzer.lengthInBits(test));
         System.out.print(isBitSet);
     }
+
+    @Test
+    public void stringAnalyzerBitIndexTest() {
+        String s1 = "hello";
+        String s2 = "hola";
+        System.out.println("s1:");
+        for (int i = 0; i < s1.length(); i++) {
+            System.out.println((Integer.toBinaryString((int) s1.charAt(i))));
+        }
+        System.out.println("s2:");
+        for (int i = 0; i < s2.length(); i++) {
+            System.out.println((Integer.toBinaryString((int) s2.charAt(i))));
+        }
+        StringKeyAnalyzer analyzer = new StringKeyAnalyzer();
+        int bitIndex = analyzer.bitIndex(s1, 0, analyzer.lengthInBits(s1)
+                , s2, 0, analyzer.lengthInBits(s2));
+        System.out.print(bitIndex);
+
+    }
 }
