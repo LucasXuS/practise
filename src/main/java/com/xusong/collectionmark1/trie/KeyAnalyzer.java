@@ -52,8 +52,14 @@ public abstract class KeyAnalyzer<K> implements Comparator<K>, Serializable {
 
 
     @Override
+    @SuppressWarnings("unchecked")
     public int compare(K o1, K o2) {
-        return 0;
+        if (o1 == null) {
+            return o2 == null ? 0 : -1;
+        } else if (o2 == null) {
+            return 1;
+        }
+        return ((Comparable<K>) o1).compareTo(o2);
     }
 
 }

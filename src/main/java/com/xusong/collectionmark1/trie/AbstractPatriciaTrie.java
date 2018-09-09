@@ -1,4 +1,4 @@
 package com.xusong.collectionmark1.trie;
 
-public class AbstractPatriciaTrie {
+abstract class AbstractPatriciaTrie<K, V> extends AbstractBitwiseTrie<K, V> {
 }

@@ -66,8 +66,8 @@ public class SortTest {
             System.out.println((Integer.toBinaryString((int) s2.charAt(i))));
         }
         StringKeyAnalyzer analyzer = new StringKeyAnalyzer();
-        int bitIndex = analyzer.bitIndex(s1, 0, analyzer.lengthInBits(s1)
-                , s2, 0, analyzer.lengthInBits(s2));
+        int bitIndex = analyzer.bitIndex(s1, 0, 1024
+                , s2, 0, 1024);
         System.out.print(bitIndex);
 
     }
