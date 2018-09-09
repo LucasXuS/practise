@@ -18,7 +18,7 @@ public class StringKeyAnalyzer extends KeyAnalyzer<String> {
 
 
     @Override
-    public int lengthInBits(String key) {
+    public int lengthInBits(final String key) {
         return key == null ? 0 : key.length() * LENGTH;
     }
 

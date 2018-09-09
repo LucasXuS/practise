@@ -24,6 +24,64 @@ public abstract class AbstractBitwiseTrie<K, V> extends AbstractMap<K, V>
         return keyAnalyzer;
     }
 
+    /**
+     * <pre>
+     *   Trie[6]={
+     *       beijing=010
+     *       nanjing=025
+     *   }
+     * </pre>
+     */
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder("Trie[");
+        stringBuilder.append(size()).append("]={");
+        for (Map.Entry<K, V> entry : entrySet()) {
+            stringBuilder.append("   ").append(entry).append("\n");
+        }
+        stringBuilder.append("}\n");
+        return stringBuilder.toString();
+    }
+
+    @SuppressWarnings("unchecked")
+    final K castKey(Object key) {
+        return (K) key;
+    }
+
+    public int bitsPerElement() {
+        return keyAnalyzer.bitsPerElement();
+    }
+
+    public int bitIndex(final String key, final String other) {
+        return keyAnalyzer.bitIndex(key, 0, key.length(), other, 0, other.length());
+    }
+
+    public int lengthInBits(final K key) {
+        if (key == null) {
+            return 0;
+        }
+        return keyAnalyzer.lengthInBits(key);
+    }
+
+    public boolean isBitSet(final K key, final int bitIndex, final int lengthInBits) {
+        if (key == null) {
+            return false;
+        }
+        return keyAnalyzer.isBitSet(key, bitIndex, lengthInBits);
+    }
+
+    final boolean compareKeys(final K key, final K other) {
+        if (key == null) {
+            return other == null;
+        } else if (other == null) {
+            return false;
+        }
+        return keyAnalyzer.compare(key, other) == 0;
+    }
+
+    final boolean compare(final Object o1, final Object o2) {
+        return o1 == null ? o2 == null : o1.equals(o2);
+    }
 
     abstract static class BasicEntry<K, V> implements Map.Entry<K, V>, Serializable {
         private K key;
