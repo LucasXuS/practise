@@ -1,4 +1,4 @@
-package chapterX;
+package com.xusong.algorithm;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -22,6 +22,13 @@ public class Solution2 {
     }
 
     public static void main(String[] args) {
+        LCS lcs = new LCS("bananas#anal&canal@", new char[]{'#', '&', '@'});
+        try {
+            lcs.buildSuffixTree();
+            System.out.println(lcs.findLCS());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     // 题目一
@@ -256,7 +263,14 @@ public class Solution2 {
     // 题目五
     // 方法1 最长公共子串
     public static String longestPalindrome1(String s) {
-
+        LCS lcs = new LCS("bananas#anal&canal@", new char[]{'#', '&', '@'});
+        try {
+            lcs.buildSuffixTree();
+            System.out.println(lcs.findLCS());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 
 
