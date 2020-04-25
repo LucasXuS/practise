@@ -22,13 +22,7 @@ public class Solution2 {
     }
 
     public static void main(String[] args) {
-        LCS lcs = new LCS("bananas#anal&canal@", new char[]{'#', '&', '@'});
-        try {
-            lcs.buildSuffixTree();
-            System.out.println(lcs.findLCS());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        System.out.println(longestPalindrome1("abacdfgdcaba"));
     }
 
     // 题目一
@@ -262,15 +256,146 @@ public class Solution2 {
 
     // 题目五
     // 方法1 最长公共子串
+    // 通过获得和本字符串的逆向字符串的最大公共字符串，来获取最大回文字符串
+    // 对于abcdjkdcba来说 abcd可能会认为是字符串，
+    // 因此，需要对公共字符串在两个字符串（正向，逆向）的位置进行判断
     public static String longestPalindrome1(String s) {
-        LCS lcs = new LCS("bananas#anal&canal@", new char[]{'#', '&', '@'});
-        try {
-            lcs.buildSuffixTree();
-            System.out.println(lcs.findLCS());
-        } catch (Exception e) {
-            e.printStackTrace();
+        String res = "";
+        int maxProbablyLength = s.length();
+        // 为了判断是否为假的回文而用的reverse字符串
+        String reverseAll = new StringBuilder(s).reverse().toString();
+        // 循环如下，因为我们可以立刻得到最长公共字符串，所以，我们以公共字符串长度为契机进行循环
+        // 我们的变量有两个，起始位置start，字符串长度maxProbablyLength（窗口平移）
+        while (maxProbablyLength > 1) {
+            // 不可能在for循环里面更新maxProbablyLength，原因有两个：
+            // 如果更新后用continue,前后窗口大小不一致会产生混乱，
+            // 如果更新maxProbablyLength后break。会忽略后面有更长的lcs的可能性
+            String temRes = "";
+            for (int start = 0; start <= s.length() - maxProbablyLength; start++) {
+                // 获得窗口截取字符串
+                String subString = s.substring(start, start + maxProbablyLength);
+                // 为了获取公共字符串所取的reverse字符串
+                String reverse = new StringBuilder(subString).reverse().toString();
+                // 通过lcs 获取最长公共字符串
+                LCS lcs = new LCS(subString + "#" + reverse + "@"
+                        , new char[]{'#', '@'});
+                String longestCommonString = "";
+                try {
+                    lcs.buildSuffixTree();
+                    longestCommonString = lcs.findLCS();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                if (longestCommonString.length() > 1) {
+                    // 存在公共字符串
+                    // 对位置进行计算，规避可能出现的假回文
+                    int check = s.indexOf(longestCommonString)
+                            + reverseAll.lastIndexOf(longestCommonString)
+                            + longestCommonString.length();
+                    if (longestCommonString.length() > temRes.length()
+                            && check == s.length()) {
+                        // 只有获取的最长公共字符串长于目前的最大回文才有可能
+                        // 位置校验通过说明确实是回文
+                        // 保存当前的最长回文
+                        temRes = longestCommonString;
+                    } else {
+                        // 如果 [0,x]中存在公共字符串s1
+                        // 那么从[0,x] 至[s1_index, x+s_index]之间的窗口lcs都是s1
+                        // 为了减少计算量，做了如下处理
+                        // 可能s.indexof = 0，那么会进入无限循环
+                        if(s.indexOf(longestCommonString) > start){
+                            start = s.indexOf(longestCommonString);
+                        }
+
+                    }
+                }
+
+            }
+            if (temRes.length() > res.length()) {
+                res = temRes;
+                maxProbablyLength = res.length();
+            } else {
+                // 否则窗口长度缩减1，不做这个动作可能进入无限循环
+                maxProbablyLength--;
+            }
+
         }
-        return "";
+        return res;
+    }
+
+    // 方法2 暴力法
+    public static String longestPalindrome2(String s) {
+        int maxLength = 0;
+        String retString = "";
+        for (int i = 0; i < s.length(); i++) {
+            for (int j = i + 1; j <= s.length(); j++) {
+                if (isPalidrome(s.substring(i, j))) {
+                    if (maxLength < j - i + 1) {
+                        maxLength = j - i + 1;
+                        retString = s.substring(i, j);
+                    }
+                }
+            }
+        }
+        return retString;
+    }
+
+    public static boolean isPalidrome(String s) {
+        boolean isPalirome = true;
+        int n = s.length();
+        // 以下是计算过的结果，找个例子就可以知道奇偶是一样的
+        for (int i = 0; i <= (n - 1) / 2; i++) {
+            if (s.charAt(i) != s.charAt(n - 1 - i)) {
+                isPalirome = false;
+                break;
+            }
+        }
+        return isPalirome;
+    }
+
+
+    // 方法3 线性规划
+    public static String longestPalindrome3(String s) {
+        String retString = "";
+
+        // 线性规划第一步：给二位数组定义
+        // dp[i][j] 再[i,j)为回文字符串时为true,否则为false
+        boolean[][] dp = new boolean[s.length()][s.length()];
+
+        // 线性规划第三步：给出初始值 （关键的第二步需要再后面展现）
+        // dp[i][i] 为单字符的字符串 所以一定为true
+        for (int i = 0; i < s.length(); i++) {
+            dp[i][i] = true;
+            if (i > 0) {
+                dp[i - 1][i] = s.charAt(i - 1) == s.charAt(i);
+            }
+        }
+
+        // 下面我们可以根据初始值以及关系计算出来其他的值
+        // length 代表的时字符串长度 ;begin代表开头的index
+        for (int length = 3; length <= s.length(); length++) {
+            for (int begin = 0; begin <= s.length() - length; begin++) {
+
+                int i = begin;
+                int j = begin + length - 1;
+                // 如果内层不是回文，那么前后增长一个字符也不会时回文
+                if (!dp[i + 1][j - 1]) {
+                    dp[i][j] = false;
+                } else {
+                    // 当内层时回文，且前后加的字符一致，那么也是回文，否则不是回文
+                    if (s.charAt(i) == s.charAt(j)) {
+                        dp[i][j] = true;
+                        retString = s.substring(i, j + 1);
+                    } else {
+                        dp[i][j] = false;
+                    }
+
+
+                }
+            }
+        }
+        return retString;
     }
 
 
