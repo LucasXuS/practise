@@ -431,9 +431,34 @@ public class Solution {
         return r - l - 1;
     }
 
+    // 方法5 Manacher 算法
     public static String longestPalindrome5(String s) {
+        String t = manacherPreProcess(s);
+        int[] p = new int[t.length()];
+        p[0] = p[1] = 0;
+        int C = 2, R = 2;
+        for (int i = 2; i < s.length(); i++) {
+            int mirror = 2 * C - i;
+            if (i < R && mirror >= 0) {
+
+            } else {
+
+            }
+
+            if (i + p[i] > R) {
+                C = i;
+                R = i + p[i];
+            }
+        }
         return "";
     }
 
-
+    private static String manacherPreProcess(String s) {
+        StringBuilder stringBuilder = new StringBuilder("^");
+        for (int i = 0; i < s.length(); i++) {
+            stringBuilder.append('#').append(s.charAt(i));
+        }
+        stringBuilder.append("#$");
+        return stringBuilder.toString();
+    }
 }
