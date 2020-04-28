@@ -22,7 +22,6 @@ public class Solution {
     }
 
     public static void main(String[] args) {
-        System.out.println(longestPalindrome4("abacdfgdcaba"));
     }
 
     // 题目一
@@ -431,28 +430,65 @@ public class Solution {
         return r - l - 1;
     }
 
-    // 方法5 Manacher 算法
+
+    // 方法5 Manacher 算法，对称的判断是中心扩展法，但是，本算法利用回文的对称特性，大幅度减少了中心扩展的次数
+    // 以cbcbccde为例子
+    // t   ^  #  c  #  b  #  c  #  b  #  c  #  c  #  d  #  e  $
+    // i   0  1  2  3  4  5  6  7  8  9  10 11 12 13 14 15 16 17
+    // p   0  0  1  0  3  0  5  0  3  0  2  2  1  0  2  0  0  0
+    //                 m     C     i        R
+    // i为当前节点（目前p[i]未知），C 为回文中心点， R为回文最右边界。m 是mirror (i关于C的镜像) m已知。
     public static String longestPalindrome5(String s) {
+        // 对字符串进行预处理，预处理的意义和方法见函数描述
         String t = manacherPreProcess(s);
+        // p[i]为处理后的字符串t 在以 t.charAt(i)为中心时，此回文字符串的最大半径
+        // （通过数学计算可知，这个数据和未处理的字符串以此处为中心的回文字符串的长度相等）
         int[] p = new int[t.length()];
+        // 由于开头^ 是唯一的，所以p[0] 和 p[1] 为中心的字符串不可能为回文字符串，初始值都是0
         p[0] = p[1] = 0;
+        // C 为某已知回文字符串的中心Index（有可能长度是0，此时C = R）
+        // R 为该回文字符串右侧边界Index
         int C = 2, R = 2;
         for (int i = 2; i < s.length(); i++) {
+            //  i 对于 c的镜像索引 为mirror  mirror < i 所以p[mirror]是已知的
             int mirror = 2 * C - i;
             if (i < R && mirror >= 0) {
-
+                // 在R - i < o[mirror]的情况下， 那么 p[mirror]范围内为 回文的话， R-i范围内一定是回文
+                // 之所以这样处理，我们认为R以内的情况是可控的，R以外是不可控的，我们只对可控范围进行操作，如果收的紧（不是以i为中心的最长回文字符串），交给中心扩展去解决
+                // （这里使用了对称性我们认为mirror位置的情况，i也符合）
+                p[i] = Math.min(R - i, p[mirror]);
             } else {
-
+                // i == R的情况，属于完全不在可控范围之内，直接交给中心扩展法。
+                p[i] = 0;
             }
-
+            // 中心扩展法。 - 1 / + 1 是为了查看下一个字符的情况
+            // 由于前面和后面有唯一的^ 和 $ 所以不可能存在 i - 1 - p[i] < 0 或者 i + i + p[i] >= t.length的情况
+            while (t.charAt(i - 1 - p[i]) == t.charAt(i + 1 + p[i])) {
+                p[i]++;
+            }
+            // 当 i + p[i] 意味着当前回文的最右侧已经到了可控范围以外，下一个循环这种情况依旧有出现的可能
+            // 所以，可以i 设定为中心，i + p[i]设定为新的右边界
             if (i + p[i] > R) {
                 C = i;
                 R = i + p[i];
             }
         }
-        return "";
+        int maxLength = 0;
+        int centerIndex = 0;
+        for(int i = 0; i < t.length(); i++){
+            if(p[i] > maxLength){
+                maxLength = p[i];
+                centerIndex = i;
+            }
+        }
+        // 这个可以做数学证明
+        int start = (centerIndex - maxLength) / 2;
+        return s.substring(start, start + maxLength);
     }
 
+    // 对字符串进行预处理，有以下几个事项
+    // 1 字符串之间添加 # 为的是解决中心扩展法中心点在两字符之间的问题（如abba）,同时n个字符n+1个#，一个^一个$使得总字符数为2n+3，一定为奇数个字符
+    // 2 前面添加^ 后面 $ 有两个含义，1 因为前后不一致，所以中心扩展永远不会报indexOutOfRange错误 2 ^作为唯一字符，可以立刻知道p[0]=p[1]=0
     private static String manacherPreProcess(String s) {
         StringBuilder stringBuilder = new StringBuilder("^");
         for (int i = 0; i < s.length(); i++) {
