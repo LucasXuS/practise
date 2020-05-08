@@ -9,7 +9,9 @@ public class Solution2 {
 
 
     public static void main(String[] args) {
-        System.out.println(myAtoi("-2147483647"));
+        String s = "mississippi";
+        String p = "mis*is*ip*.";
+        System.out.println(isMatch2(s, p));
     }
 
     // 题目六 这是个数学问题，只要找出每行的通项公式即可
@@ -110,28 +112,51 @@ public class Solution2 {
     }
 
     // 题目十
-    //s = "mississippi"
-    //p = "mis*is*p*."
-    public static boolean isMatch(String s, String p) {
+
+
+    //  1  自底向上无递归 + 动态规划
+    // String s = "mississippi";
+    // String p = "mis*is*ip*.";
+    //  ppi
+    //  p*.
+    public static boolean isMatch1(String s, String p) {
         boolean[][] memo = new boolean[s.length() + 1][p.length() + 1];
         memo[s.length()][p.length()] = true;
-        for (int i = s.length(); i >= 0; i--) {
+        for (int i = s.length() - 1; i >= 0; i--) {
             for (int j = p.length() - 1; j >= 0; j--) {
                 // 针对 i 和 j位置进行单独的比较,同时处理.的情况
-                boolean firstMatch = i < s.length() && (s.charAt(i) == s.charAt(j) || s.charAt(j) == '.');
+                boolean firstMatch = i < s.length() && (s.charAt(i) == p.charAt(j) || p.charAt(j) == '.');
                 // 这里是最复杂的情况，要考虑*
                 if (j < p.length() - 1 && p.charAt(j + 1) == '*') {
-                    memo[i][j] = memo[i][j];
+                    // && 比 || 优先
+                    // * 代表0个或多个  所以 memo[i][j + 2]代表 0 个的情形  firstMatch && memo[i + 1][j] 代表多个的情形
+                    memo[i][j] = memo[i][j + 2] || firstMatch && memo[i + 1][j];
                 } else {
                     // 这是最基本的情况，完全不考虑 * 符号的情况，在不考虑* 的情况下 {i} {j} 符合,同时 [i + 1:] [j + 1:]符合，就是[i:] [j:]符合
                     memo[i][j] = firstMatch & memo[i + 1][j + 1];
                 }
+                System.out.println("s = " + s.substring(i) + ",p = " + p.substring(j) + ",memo[" + i + "][" + j + "] = " + memo[i][j]);
 
             }
         }
-
-
         return memo[0][0];
+    }
+
+    // 2 根据上面的方法改成递归 实际上 memo[i][j]是一种可以通过递归实现的方式 即 isMatch(s.substring(i), p.substring(j))
+    public static boolean isMatch2(String s, String p) {
+        // 递归出口
+        if (p.equals(""))
+            return s.equals("");
+        boolean firstMatch = s.charAt(0) == p.charAt(0) || p.charAt(0) == '.';
+        // 这里是最复杂的情况，要考虑*
+        if (p.length() > 2 && p.charAt(1) == '*') {
+            // && 比 || 优先
+            // * 代表0个或多个  所以 memo[i][j + 2]代表 0 个的情形  firstMatch && memo[i + 1][j] 代表多个的情形
+            return isMatch2(s, p.substring(2)) || firstMatch && isMatch2(s.substring(1), p);
+        } else {
+            // 这是最基本的情况，完全不考虑 * 符号的情况，在不考虑* 的情况下 {i} {j} 符合,同时 [i + 1:] [j + 1:]符合，就是[i:] [j:]符合
+            return firstMatch & isMatch2(s.substring(1), p.substring(1));
+        }
     }
 
 
