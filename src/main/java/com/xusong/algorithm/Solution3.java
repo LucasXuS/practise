@@ -7,7 +7,7 @@ package com.xusong.algorithm;
  */
 public class Solution3 {
     public static void main(String[] args) {
-        System.out.println(intToRoman2(1994));
+        System.out.println(romanToInt("MCMXCIV"));
     }
 
 
@@ -74,5 +74,46 @@ public class Solution3 {
             }
         }
         return res.toString();
+    }
+
+    public static int romanToInt(String s) {
+        int[] values = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
+        String[] reps = {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
+        int res = 0;
+        int point = 0;
+        while (point < s.length()) {
+            int index = -1;
+            String s2 = null;
+            if(point < s.length() - 1){
+                s2 = s.substring(point, point + 2);
+            }
+            index = indexOf(reps, s2);
+            if(index >= 0){
+                res += values[index];
+                point = point + 2;
+                continue;
+            }
+
+            String s1 = s.substring(point, point + 1);
+            index = indexOf(reps, s1);
+            if(index >= 0){
+                res += values[index];
+                point = point + 1;
+            }
+
+        }
+        return res;
+
+    }
+
+    private static int indexOf(String[] arr, String s){
+        if(s != null && s.length() > 0){
+            for(int i = 0; i < arr.length; i++){
+                if(arr[i].equals(s)){
+                    return i;
+                }
+            }
+        }
+        return -1;
     }
 }
