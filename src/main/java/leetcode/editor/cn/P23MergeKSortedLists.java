@@ -14,18 +14,19 @@
 
 package leetcode.editor.cn;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.List;
 
 //Java：合并K个排序链表
 public class P23MergeKSortedLists {
     public static void main(String[] args) {
         Solution solution = new P23MergeKSortedLists().new Solution();
-        ListNode[] lists = new ListNode[]{solution.initList(new int[]{2}), solution.initList(new int[]{1}), solution.initList(new int[]{3})};
+        ListNode[] lists = new ListNode[]{solution.initList(new int[]{1, 4, 5}), solution.initList(new int[]{1, 3, 4}), solution.initList(new int[]{2, 6})};
         // TO TEST
-        System.out.println(solution.getIndex(new int[]{1,4,6,8,12,56}, 7));
-
-
+        //System.out.println(solution.getIndex(new int[]{1, 4, 6, 8, 12, 56}, 7));
+        solution.printList(solution.mergeKLists(lists));
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
@@ -40,26 +41,40 @@ public class P23MergeKSortedLists {
 
     class Solution {
         public ListNode mergeKLists(ListNode[] lists) {
+            ListNode result = null;
+            ListNode head = null;
+            lists = washData(lists);
             Arrays.sort(lists, Comparator.comparingInt(o -> o.val));
-
-            return null;
-        }
-
-        public int find(ListNode[] lists) {
-            ListNode obj = lists[0];
-            int i = 1;
-            int j = lists.length - 1;
-            while (i < j) {
-                int mid = (j + i) / 2;
-                int half = lists[mid].val;
-                if (obj.val < half) {
-                    i = mid + 1;
-                } else if (obj.val > half) {
-                    j = mid - 1;
+            while (lists.length > 0) {
+                ListNode node = lists[0];
+                if (result == null) {
+                    result = new ListNode(node.val);
+                    head = result;
+                } else {
+                    result.next = new ListNode(node.val);
+                    result = result.next;
+                }
+                node = node.next;
+                if (node == null) {
+                    ListNode[] newLists = new ListNode[lists.length - 1];
+                    if (lists.length > 1) {
+                        System.arraycopy(lists, 1, newLists, 0, newLists.length);
+                    }
+                    lists = newLists;
+                } else {
+                    switchElements(lists, node);
                 }
             }
-            return 0;
+            return head;
+        }
 
+        public void switchElements(ListNode[] lists, ListNode node) {
+            int i = 1;
+            while (i < lists.length && node.val > lists[i].val) {
+                lists[i - 1] = lists[i];
+                i++;
+            }
+            lists[i - 1] = node;
         }
 
         public ListNode initList(int[] arr) {
@@ -85,20 +100,36 @@ public class P23MergeKSortedLists {
             }
         }
 
-        public int getIndex(int[] arr, int val){
+        public int getIndex(int[] arr, int val) {
             int i = 0;
             int j = arr.length - 1;
             while (i < j) {
                 int mid = (j + i) / 2;
                 int half = arr[mid];
-                if (arr[mid] < half) {
+                if (half < val) {
                     i = mid + 1;
-                } else if (arr[mid] > half) {
+                } else {
                     j = mid - 1;
                 }
             }
             return i;
         }
+
+
+        public ListNode[] washData(ListNode[] lists){
+            ArrayList<ListNode> listNodeList = new ArrayList<>();
+            for(ListNode node : lists){
+                if(node != null){
+                    listNodeList.add(node);
+                }
+            }
+            lists = new ListNode[listNodeList.size()];
+            for(int i = 0; i < listNodeList.size(); i++){
+                lists[i] = listNodeList.get(i);
+            }
+            return lists;
+        }
+
     }
     //leetcode submit region end(Prohibit modification and deletion)
 

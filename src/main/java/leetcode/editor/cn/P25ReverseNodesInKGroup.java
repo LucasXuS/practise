@@ -32,6 +32,9 @@ public class P25ReverseNodesInKGroup {
     public static void main(String[] args) {
         Solution solution = new P25ReverseNodesInKGroup().new Solution();
         // TO TEST
+        ListNode listNode = solution.initList(new int[]{1, 2, 3, 4, 5});
+        ListNode head = solution.reverseKGroup(listNode, 3);
+        solution.printList(head);
     }
     //leetcode submit region begin(Prohibit modification and deletion)
 
@@ -46,7 +49,31 @@ public class P25ReverseNodesInKGroup {
 
     class Solution {
         public ListNode reverseKGroup(ListNode head, int k) {
+
             return null;
+        }
+
+        public ListNode initList(int[] arr) {
+            ListNode head = null;
+            ListNode node = null;
+            for (int i = 0; i < arr.length; i++) {
+                if (i == 0) {
+                    node = new ListNode(arr[0]);
+                    head = node;
+                } else {
+                    ListNode temp = new ListNode(arr[i]);
+                    node.next = temp;
+                    node = temp;
+                }
+            }
+            return head;
+        }
+
+        public void printList(ListNode head) {
+            while (head != null) {
+                System.out.println(head.val);
+                head = head.next;
+            }
         }
     }
     //leetcode submit region end(Prohibit modification and deletion)
