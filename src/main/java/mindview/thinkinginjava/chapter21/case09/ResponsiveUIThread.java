@@ -1,8 +1,13 @@
 package mindview.thinkinginjava.chapter21.case09;
 
-public class ResponsiveUI extends Thread {
+/**
+ * @author <a href="mailto:xusong@gtmap.cn">xusong</a>
+ * @version 1.0, 2020-08-20
+ * @description: 按下按钮所触发的新线程，在这个线程里面，执行ui按钮的功能。
+ */
+public class ResponsiveUIThread extends Thread {
 
-    public ResponsiveUI() {
+    public ResponsiveUIThread() {
         setDaemon(false);
         start();
     }

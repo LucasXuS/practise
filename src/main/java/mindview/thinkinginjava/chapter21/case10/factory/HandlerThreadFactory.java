@@ -4,6 +4,12 @@ import mindview.thinkinginjava.chapter21.case10.handler.MyUncaughtExceptionHandl
 
 import java.util.concurrent.ThreadFactory;
 
+
+/**
+ * @author <a href="mailto:xusong@gtmap.cn">xusong</a>
+ * @version 1.0, 2020-08-20
+ * @description: 修改工厂方法，在我们的方法里面为新线程增加handler
+ */
 public class HandlerThreadFactory implements ThreadFactory {
     @Override
     public Thread newThread(Runnable r) {
