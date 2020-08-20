@@ -1,6 +1,7 @@
 package mindview.thinkinginjava.chapter21.case11;
 
 import mindview.thinkinginjava.chapter21.case11.generator.EvenGenerator;
+import mindview.thinkinginjava.chapter21.case11.generator.MutexEvenGenerator;
 import mindview.thinkinginjava.chapter21.case11.generator.SynchronizedEvenGenerator;
 import mindview.thinkinginjava.chapter21.case11.runnable.EvenChecker;
 
@@ -12,6 +13,7 @@ import mindview.thinkinginjava.chapter21.case11.runnable.EvenChecker;
 public class EvenGeneratorDemo {
     public static void main(String[] args){
         //EvenChecker.test(new EvenGenerator());
-        EvenChecker.test(new SynchronizedEvenGenerator());
+        //EvenChecker.test(new SynchronizedEvenGenerator());
+        EvenChecker.test(new MutexEvenGenerator());
     }
 }
