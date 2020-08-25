@@ -2,38 +2,38 @@ package mindview.thinkinginjava.chapter21.case12;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @author <a href="mailto:xusong@gtmap.cn">xusong</a>
  * @version 1.0, ${date}
  * @description: ${todo}
  */
-public class AtomicityTestDemo implements Runnable {
-    private int i = 0;
+public class AtomicIntegerTestDemo implements Runnable {
 
-    // public synchronized int getValue()
+    private AtomicInteger i = new AtomicInteger(0);
+
+    private void evenIncrement() {
+        i.addAndGet(2);
+    }
+
     public int getValue() {
-        return i;
+        return i.get();
     }
 
     @Override
     public void run() {
-        while (true) {
+        while (true)
             evenIncrement();
-        }
     }
 
-    private void evenIncrement() {
-        i++;
-        i++;
-    }
 
     public static void main(String[] args) {
-        AtomicityTestDemo demo = new AtomicityTestDemo();
-        ExecutorService executorService = Executors.newCachedThreadPool();
-        executorService.execute(demo);
+        AtomicIntegerTestDemo a = new AtomicIntegerTestDemo();
+        ExecutorService e = Executors.newCachedThreadPool();
+        e.execute(a);
         while (true) {
-            int val = demo.getValue();
+            int val = a.getValue();
             if (val % 2 != 0) {
                 System.out.println(val);
                 System.exit(0);
