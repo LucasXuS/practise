@@ -2,19 +2,27 @@ package mindview.thinkinginjava.chapter21.case14.manager;
 
 import mindview.thinkinginjava.chapter21.case14.model.Pair;
 
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
 /**
  * @author <a href="mailto:xusong@gtmap.cn">xusong</a>
  * @version 1.0, ${date}
  * @description: ${todo}
  */
-public class SynchronizedBlockPairManager extends PairManager {
+public class LockSimulateSyncBlockPairManager extends PairManager {
+    Lock lock = new ReentrantLock();
+
     @Override
-    public synchronized void increment() {
+    public void increment() {
         Pair temp;
-        synchronized (this) {
+        lock.lock();
+        try {
             pair.incrementX();
             pair.incrementY();
             temp = getPair();
+        } finally {
+            lock.unlock();
         }
         store(temp);
     }

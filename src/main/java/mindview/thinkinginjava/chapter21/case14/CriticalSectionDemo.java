@@ -1,8 +1,6 @@
 package mindview.thinkinginjava.chapter21.case14;
 
-import mindview.thinkinginjava.chapter21.case14.manager.PairManager;
-import mindview.thinkinginjava.chapter21.case14.manager.SynchronizedBlockPairManager;
-import mindview.thinkinginjava.chapter21.case14.manager.SynchronizedFunctionPairManager;
+import mindview.thinkinginjava.chapter21.case14.manager.*;
 import mindview.thinkinginjava.chapter21.case14.runnable.PairCheckerRunnable;
 import mindview.thinkinginjava.chapter21.case14.runnable.PairManipulatorRunnable;
 
@@ -32,11 +30,12 @@ public class CriticalSectionDemo {
             System.out.println("sleep has been interrupted");
         }
 
-        System.out.println("pmr1 = " + pmr1 + "\npm2 = " + pmr2);
+        System.out.println("pmr1 = " + pmr1 + "\npmr2 = " + pmr2);
         System.exit(0);
     }
 
     public static void main(String[] args){
-        testApproaches(new SynchronizedFunctionPairManager(), new SynchronizedBlockPairManager());
+        //testApproaches(new SynchronizedFunctionPairManager(), new SynchronizedBlockPairManager());
+        testApproaches(new LockSimulateSyncFunctionPairManager(), new LockSimulateSyncBlockPairManager());
     }
 }
