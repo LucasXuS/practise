@@ -5,8 +5,9 @@ import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * @author <a href="mailto:xusong@gtmap.cn">xusong</a>
- * @version 1.0, ${date}
- * @description: ${todo}
+ * @version 1.0, 2020-09-04
+ * @description: java对于Lock类提供了tryLock的操作，当在多线程中，我们某个线程程序运行的时候无法获得锁，可以先去做别的事情，可以获得锁的时候在执行
+ * 需要线程安全的代码。这样可以提升程序的运行效率。
  */
 public class AttemptingLockingDemo {
     private ReentrantLock lock = new ReentrantLock();

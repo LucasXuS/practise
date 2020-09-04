@@ -1,6 +1,6 @@
-package mindview.thinkinginjava.chapter21.case14.runnable;
+package mindview.thinkinginjava.chapter21.case15.runnable;
 
-import mindview.thinkinginjava.chapter21.case14.manager.PairManager;
+import mindview.thinkinginjava.chapter21.case15.manager.PairManager;
 
 /**
  * @author <a href="mailto:xusong@gtmap.cn">xusong</a>

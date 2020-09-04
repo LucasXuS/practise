@@ -1,6 +1,6 @@
-package mindview.thinkinginjava.chapter21.case14.manager;
+package mindview.thinkinginjava.chapter21.case15.manager;
 
-import mindview.thinkinginjava.chapter21.case14.model.Pair;
+import mindview.thinkinginjava.chapter21.case15.model.Pair;
 
 import java.util.ArrayList;
 import java.util.Collections;

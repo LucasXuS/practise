@@ -2,17 +2,15 @@ package mindview.thinkinginjava.chapter21.case11.generator;
 
 /**
  * @author <a href="mailto:xusong@gtmap.cn">xusong</a>
- * @version 1.0, ${date}
- * @description: ${todo}
+ * @version 1.0, 2020-09-04
+ * @description: 我们通过synchronized函数来解决争用的问题
  */
 public class SynchronizedEvenGenerator extends IntGenerator{
     private int currentEvenValue= 0;
     @Override
     public synchronized int next() {
-        // 这一步操作很危险
         currentEvenValue++;
-        // 在这里运行此句可以增大失败的可能性
-        Thread.yield();
+        Thread.yield(); // can make failure faster if this program has Thread issue
         currentEvenValue++;
         return currentEvenValue;
     }

@@ -1,8 +1,10 @@
-package mindview.thinkinginjava.chapter21.case14;
+package mindview.thinkinginjava.chapter21.case15;
 
-import mindview.thinkinginjava.chapter21.case14.manager.*;
-import mindview.thinkinginjava.chapter21.case14.runnable.PairCheckerRunnable;
-import mindview.thinkinginjava.chapter21.case14.runnable.PairManipulatorRunnable;
+import mindview.thinkinginjava.chapter21.case15.manager.LockSimulateSyncBlockPairManager;
+import mindview.thinkinginjava.chapter21.case15.manager.LockSimulateSyncFunctionPairManager;
+import mindview.thinkinginjava.chapter21.case15.runnable.PairCheckerRunnable;
+import mindview.thinkinginjava.chapter21.case15.runnable.PairManipulatorRunnable;
+import mindview.thinkinginjava.chapter21.case15.manager.PairManager;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

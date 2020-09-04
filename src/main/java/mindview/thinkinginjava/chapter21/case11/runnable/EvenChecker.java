@@ -7,8 +7,8 @@ import java.util.concurrent.Executors;
 
 /**
  * @author <a href="mailto:xusong@gtmap.cn">xusong</a>
- * @version 1.0, ${date}
- * @description: ${todo}
+ * @version 1.0, 2020-09-04
+ * @description: 偶数生成器的测试程序，当生成的数据不是偶数时停止生成并且停止测试
  */
 public class EvenChecker implements Runnable {
     private IntGenerator generator;
@@ -30,6 +30,12 @@ public class EvenChecker implements Runnable {
         }
     }
 
+    /**
+    * @author <a href="mailto:xusong@gtmap.cn">xusong</a>
+    * @param
+    * @return
+    * @Description: 利用多线程，使得复数个生成器生成数据
+    */
     public static void test(IntGenerator g, int count) {
         System.out.println("press ctrl-c to exit");
         ExecutorService executorService = Executors.newCachedThreadPool();

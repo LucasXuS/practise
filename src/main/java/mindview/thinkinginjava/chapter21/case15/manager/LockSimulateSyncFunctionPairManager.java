@@ -1,4 +1,4 @@
-package mindview.thinkinginjava.chapter21.case14.manager;
+package mindview.thinkinginjava.chapter21.case15.manager;
 
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;

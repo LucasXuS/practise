@@ -1,4 +1,4 @@
-package mindview.thinkinginjava.chapter21.case14.manager;
+package mindview.thinkinginjava.chapter21.case15.manager;
 
 /**
  * @author <a href="mailto:xusong@gtmap.cn">xusong</a>

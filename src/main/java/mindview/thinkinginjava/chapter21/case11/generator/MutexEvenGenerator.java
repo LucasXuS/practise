@@ -5,8 +5,8 @@ import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * @author <a href="mailto:xusong@gtmap.cn">xusong</a>
- * @version 1.0, ${date}
- * @description: ${todo}
+ * @version 1.0, 2020-09-04
+ * @description: 这里是另一个办法，我们通过lock来解决争用的问题，实际上 synchronized 和 lock在写法上是可以互相转换的。
  */
 public class MutexEvenGenerator extends IntGenerator {
     private Lock lock = new ReentrantLock();
