@@ -4,8 +4,8 @@ import mindview.thinkinginjava.chapter21.case15.manager.PairManager;
 
 /**
  * @author <a href="mailto:xusong@gtmap.cn">xusong</a>
- * @version 1.0, ${date}
- * @description: ${todo}
+ * @version 1.0, 2020-09-04
+ * @description: 数据模型，一组数据
  */
 public class Pair {
     private int x, y;

@@ -5,8 +5,8 @@ import java.util.concurrent.Executors;
 
 /**
  * @author <a href="mailto:xusong@gtmap.cn">xusong</a>
- * @version 1.0, ${date}
- * @description: ${todo}
+ * @version 1.0, 2020-09-04
+ * @description: 测试生成器程序，理论上，SerialNumberGenerator不可能使得CircularSet里面有重复的存值。一旦发现重复的存值我们就退出程序。
  */
 public class SerialCheckerDemo {
     private static final int SIZE = 10;

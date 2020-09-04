@@ -2,8 +2,8 @@ package mindview.thinkinginjava.chapter21.case14;
 
 /**
  * @author <a href="mailto:xusong@gtmap.cn">xusong</a>
- * @version 1.0, ${date}
- * @description: ${todo}
+ * @version 1.0, 2020-09-04
+ * @description: 循环set，一旦满了就从index为0的地方覆盖原值继续存储
  */
 public class CircularSet {
 

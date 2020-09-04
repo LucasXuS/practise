@@ -8,8 +8,8 @@ import java.util.concurrent.Executors;
 
 /**
  * @author <a href="mailto:xusong@gtmap.cn">xusong</a>
- * @version 1.0, ${date}
- * @description: ${todo}
+ * @version 1.0, 2020-09-04
+ * @description: 偶数生成器的测试程序，当不是偶数时，就退出程序
  */
 public class AtomicityTestDemo {
 

@@ -4,8 +4,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @author <a href="mailto:xusong@gtmap.cn">xusong</a>
- * @version 1.0, ${date}
- * @description: ${todo}
+ * @version 1.0, 2020-09-04
+ * @description: 使用AtomicInteger 生成偶数，线程安全。
  */
 public class AtomicIntegerTestRunnable extends IntegerTestRunnable {
     private AtomicInteger i = new AtomicInteger(0);

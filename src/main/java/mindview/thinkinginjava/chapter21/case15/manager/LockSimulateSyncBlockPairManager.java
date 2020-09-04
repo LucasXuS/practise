@@ -7,8 +7,8 @@ import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * @author <a href="mailto:xusong@gtmap.cn">xusong</a>
- * @version 1.0, ${date}
- * @description: ${todo}
+ * @version 1.0, 2020-09-04
+ * @description: 利用lock对象模仿SynchronizedBlockPairManager,因为同步块语句较少，运行效率高于LockSimulateSyncFunctionPairManager
  */
 public class LockSimulateSyncBlockPairManager extends PairManager {
     Lock lock = new ReentrantLock();

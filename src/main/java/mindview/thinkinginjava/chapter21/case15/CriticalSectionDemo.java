@@ -12,8 +12,8 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * @author <a href="mailto:xusong@gtmap.cn">xusong</a>
- * @version 1.0, ${date}
- * @description: ${todo}
+ * @version 1.0, 2020-09-04
+ * @description: 测试程序
  */
 public class CriticalSectionDemo {
     static void testApproaches(PairManager pMan1, PairManager pMan2) {
