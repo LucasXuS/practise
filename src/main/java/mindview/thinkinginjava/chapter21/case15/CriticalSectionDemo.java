@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * @author <a href="mailto:xusong@gtmap.cn">xusong</a>
  * @version 1.0, 2020-09-04
- * @description: 测试程序
+ * @description: 测试程序，thinking in java 认为 这里
  */
 public class CriticalSectionDemo {
     static void testApproaches(PairManager pMan1, PairManager pMan2) {

@@ -40,7 +40,7 @@ public class Pair {
         return "x = " + x + ",y = " + y;
     }
 
-    public class PairValuesNotEqualException extends RuntimeException {
+    private class PairValuesNotEqualException extends RuntimeException {
         public PairValuesNotEqualException() {
             super("pair values not equal: " + Pair.this);
         }
