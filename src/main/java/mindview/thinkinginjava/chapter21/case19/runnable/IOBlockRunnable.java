@@ -18,7 +18,7 @@ public class IOBlockRunnable implements Runnable {
     @Override
     public void run() {
         try {
-            System.out.println("Wating for read()");
+            System.out.println("Waiting for read()");
             in.read();
         } catch (IOException e) {
             if (Thread.currentThread().isInterrupted()) {
@@ -27,6 +27,6 @@ public class IOBlockRunnable implements Runnable {
                 throw new RuntimeException(e);
             }
         }
-        System.out.println("Exiting from SleepBlockRunnable.run()");
+        System.out.println("Exiting from IOBlockRunnable.run()");
     }
 }
