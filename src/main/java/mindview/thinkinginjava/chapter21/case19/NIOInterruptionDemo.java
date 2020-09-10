@@ -26,10 +26,12 @@ public class NIOInterruptionDemo {
         SocketChannel sc2 = SocketChannel.open(isa);
         Future<?> f = executorService.submit(new NIOBlockRunnable(sc1));
         executorService.execute(new NIOBlockRunnable(sc2));
-
+        System.out.println("shutdown");
         executorService.shutdown();
+        System.out.println("f.cancel");
         TimeUnit.SECONDS.sleep(1);
         f.cancel(true);
+        System.out.println("sc2.close");
         TimeUnit.SECONDS.sleep(1);
         sc2.close();
     }

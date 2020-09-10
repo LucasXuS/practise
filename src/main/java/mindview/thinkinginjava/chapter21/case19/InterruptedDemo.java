@@ -19,7 +19,7 @@ public class InterruptedDemo {
     private static ExecutorService executorService
             = Executors.newCachedThreadPool();
 
-    static void test(Runnable r) throws InterruptedException {
+    private static void test(Runnable r) throws InterruptedException {
         Future<?> future = executorService.submit(r);
         TimeUnit.MILLISECONDS.sleep(100);
         System.out.println("Interrupting " + r.getClass().getName());
