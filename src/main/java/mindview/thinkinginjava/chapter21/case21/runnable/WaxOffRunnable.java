@@ -22,7 +22,7 @@ public class WaxOffRunnable implements Runnable {
         try {
             while (!Thread.interrupted()){
                 car.waitForWaxing();
-                System.out.print("Was off! ");
+                System.out.print("Wax off! ");
                 TimeUnit.MILLISECONDS.sleep(200);
                 car.buffed();
             }
