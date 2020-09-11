@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * @author <a href="mailto:xusong@gtmap.cn">xusong</a>
  * @version 1.0, ${date}
- * @description: ${todo}
+ * @description: 说明 synchronized wait notify notifyAll 都是基于对象的，而不是基于某个具体的类。
  */
 public class NotifyVsNotifyAllDemo {
 
