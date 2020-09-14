@@ -1,12 +1,12 @@
-package mindview.thinkinginjava.chapter21.case01.runnable;
+package mindview.thinkinginjava.chapter21.case25.runnable;
 
 /**
  * @author <a href="mailto:xusong@gtmap.cn">xusong</a>
- * @version 1.0, 2020-07-27
+ * @version 1.0, 2020-09-14
  * @description: 基本示例
  */
 //  runnable 是一个任务，在不启用Thread等类的情况下单独运行并不是多线程运行
-public class LiftOff implements Runnable {
+public class LiftOffRunnable implements Runnable {
 
     protected int countDown = 10;// default
 
@@ -15,10 +15,10 @@ public class LiftOff implements Runnable {
     // id为标记，由于taskCount是共享的，所以id各不相同
     private final int id = taskCount++;
 
-    public LiftOff() {
+    public LiftOffRunnable() {
     }
 
-    public LiftOff(int countDown) {
+    public LiftOffRunnable(int countDown) {
         this.countDown = countDown;
     }
 

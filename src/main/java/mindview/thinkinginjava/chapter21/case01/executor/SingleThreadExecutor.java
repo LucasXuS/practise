@@ -1,6 +1,6 @@
 package mindview.thinkinginjava.chapter21.case01.executor;
 
-import mindview.thinkinginjava.chapter21.case01.runnable.LiftOff;
+import mindview.thinkinginjava.chapter21.case01.runnable.LiftOffRunnable;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -15,7 +15,7 @@ public class SingleThreadExecutor {
         // 由于使用的SingleThreadExecutor,只有一个额外线程，因此，runnable不会穿插执行而是顺序执行。
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         for (int i = 0; i < 5; i++) {
-            executorService.execute(new LiftOff());
+            executorService.execute(new LiftOffRunnable());
         }
         executorService.shutdown();
     }

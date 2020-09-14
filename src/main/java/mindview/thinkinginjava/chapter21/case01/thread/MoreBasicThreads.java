@@ -1,6 +1,6 @@
 package mindview.thinkinginjava.chapter21.case01.thread;
 
-import mindview.thinkinginjava.chapter21.case01.runnable.LiftOff;
+import mindview.thinkinginjava.chapter21.case01.runnable.LiftOffRunnable;
 
 /**
  * @author <a href="mailto:xusong@gtmap.cn">xusong</a>
@@ -10,7 +10,7 @@ import mindview.thinkinginjava.chapter21.case01.runnable.LiftOff;
 public class MoreBasicThreads {
     public static void main(String[] args) {
         for (int i = 0; i < 5; i++) {
-            new Thread(new LiftOff()).start();
+            new Thread(new LiftOffRunnable()).start();
         }
         System.out.println("main thread start.");
     }

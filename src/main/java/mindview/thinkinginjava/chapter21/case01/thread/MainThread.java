@@ -1,6 +1,6 @@
 package mindview.thinkinginjava.chapter21.case01.thread;
 
-import mindview.thinkinginjava.chapter21.case01.runnable.LiftOff;
+import mindview.thinkinginjava.chapter21.case01.runnable.LiftOffRunnable;
 
 /**
  * @author <a href="mailto:xusong@gtmap.cn">xusong</a>
@@ -10,7 +10,7 @@ import mindview.thinkinginjava.chapter21.case01.runnable.LiftOff;
 public class MainThread {
     public static void main(String[] args) {
         // 并不是多线程代码, run中的代码在主线程中运行。
-        LiftOff liftOff = new LiftOff();
+        LiftOffRunnable liftOff = new LiftOffRunnable();
         liftOff.run();
         System.out.println("main thread");
     }

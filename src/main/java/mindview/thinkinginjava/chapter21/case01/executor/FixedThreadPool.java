@@ -1,6 +1,6 @@
 package mindview.thinkinginjava.chapter21.case01.executor;
 
-import mindview.thinkinginjava.chapter21.case01.runnable.LiftOff;
+import mindview.thinkinginjava.chapter21.case01.runnable.LiftOffRunnable;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -18,7 +18,7 @@ public class FixedThreadPool {
         // 2 一次性进行预先的线程分配（此处开销最大），但是在后续添加线程的时候（相比CachedThreadPool）开销更小
         ExecutorService executorService = Executors.newFixedThreadPool(5);
         for (int i = 0; i < 5; i++) {
-            executorService.execute(new LiftOff());
+            executorService.execute(new LiftOffRunnable());
         }
         executorService.shutdown();
     }

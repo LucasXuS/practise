@@ -1,6 +1,6 @@
 package mindview.thinkinginjava.chapter21.case01.thread;
 
-import mindview.thinkinginjava.chapter21.case01.runnable.LiftOff;
+import mindview.thinkinginjava.chapter21.case01.runnable.LiftOffRunnable;
 
 /**
  * @author <a href="mailto:xusong@gtmap.cn">xusong</a>
@@ -10,7 +10,7 @@ import mindview.thinkinginjava.chapter21.case01.runnable.LiftOff;
 public class BasicTreads {
     public static void main(String[] agrs) {
         // 最基本的方法，用Thread类创建一个新线程。
-        Thread t = new Thread(new LiftOff());
+        Thread t = new Thread(new LiftOffRunnable());
         t.start();
         System.out.println("main thread start");
     }

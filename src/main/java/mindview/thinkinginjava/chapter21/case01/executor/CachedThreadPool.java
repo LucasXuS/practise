@@ -1,6 +1,6 @@
 package mindview.thinkinginjava.chapter21.case01.executor;
 
-import mindview.thinkinginjava.chapter21.case01.runnable.LiftOff;
+import mindview.thinkinginjava.chapter21.case01.runnable.LiftOffRunnable;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -17,7 +17,7 @@ public class CachedThreadPool {
     public static void main(String[] args) {
         ExecutorService executorService = Executors.newCachedThreadPool();
         for (int i = 0; i < 5; i++) {
-            executorService.execute(new LiftOff());
+            executorService.execute(new LiftOffRunnable());
         }
         // 防止新任务提交给Executor
         executorService.shutdown();
