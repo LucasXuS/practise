@@ -1,6 +1,6 @@
 package mindview.thinkinginjava.chapter21.case03;
 
-import mindview.thinkinginjava.chapter21.case01.runnable.LiftOff;
+import mindview.thinkinginjava.chapter21.case01.runnable.LiftOffRunnable;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
  * @version 1.0, 2020-07-28
  * @description: 线程休眠
  */
-public class SleepingTask extends LiftOff {
+public class SleepingTask extends LiftOffRunnable {
     @Override
     public void run() {
         try {
