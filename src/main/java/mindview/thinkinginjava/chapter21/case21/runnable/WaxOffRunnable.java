@@ -1,6 +1,7 @@
 package mindview.thinkinginjava.chapter21.case21.runnable;
 
 import mindview.thinkinginjava.chapter21.case21.model.Car;
+import mindview.thinkinginjava.chapter21.case21.model.CarUsingLock;
 
 import java.util.concurrent.TimeUnit;
 

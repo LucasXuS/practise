@@ -1,6 +1,7 @@
 package mindview.thinkinginjava.chapter21.case21;
 
 import mindview.thinkinginjava.chapter21.case21.model.Car;
+import mindview.thinkinginjava.chapter21.case21.model.CarUsingLock;
 import mindview.thinkinginjava.chapter21.case21.runnable.WaxOffRunnable;
 import mindview.thinkinginjava.chapter21.case21.runnable.WaxOnRunnable;
 
@@ -17,7 +18,7 @@ public class WaxDemo {
 
     public static void main(String[] args) throws InterruptedException {
         ExecutorService executorService = Executors.newCachedThreadPool();
-        Car car = new Car();
+        Car car = new CarUsingLock();
         executorService.execute(new WaxOffRunnable(car));
         executorService.execute(new WaxOnRunnable(car));
         TimeUnit.SECONDS.sleep(5);
