@@ -5,9 +5,5 @@ package mindview.thinkinginjava.chapter21.case25;
  * @version 1.0, ${date}
  * @description: ${todo}
  */
-public class TestBlockingQueues {
-
-    public static void main(String[] args){
-
-    }
+public class PipedIODemo {
 }
