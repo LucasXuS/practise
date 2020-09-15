@@ -23,7 +23,7 @@ public class SenderRunnable implements Runnable {
     public void run() {
         try {
             while (true) {
-                for (char c = 'A'; c <= 'Z'; c++){
+                for (char c = 'A'; c <= 'Z'; c++) {
                     out.write(c);
                     TimeUnit.MILLISECONDS.sleep(random.nextInt(100));
                 }

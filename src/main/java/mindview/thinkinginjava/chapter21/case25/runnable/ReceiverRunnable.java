@@ -2,9 +2,6 @@ package mindview.thinkinginjava.chapter21.case25.runnable;
 
 import java.io.IOException;
 import java.io.PipedReader;
-import java.io.PipedWriter;
-import java.util.Random;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @author <a href="mailto:xusong@gtmap.cn">xusong</a>
@@ -14,6 +11,7 @@ import java.util.concurrent.TimeUnit;
 public class ReceiverRunnable implements Runnable {
 
     private PipedReader in;
+
     public ReceiverRunnable(SenderRunnable senderRunnable) throws IOException {
         in = new PipedReader(senderRunnable.getPipedWriter());
     }
@@ -22,7 +20,7 @@ public class ReceiverRunnable implements Runnable {
     public void run() {
         try {
             while (true) {
-                System.out.print("Read: " + (char)in.read() + ". ");
+                System.out.print("Read: " + (char) in.read() + ". ");
             }
         } catch (IOException e) {
             System.out.println(e + " Receiver read exception");
