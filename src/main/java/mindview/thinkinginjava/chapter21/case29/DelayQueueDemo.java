@@ -15,12 +15,10 @@ import java.util.concurrent.Executors;
  */
 public class DelayQueueDemo {
 
-
     public static void main(String[] args) {
         Random random = new Random(47);
         ExecutorService executorService = Executors.newCachedThreadPool();
-        DelayQueue<DelayedTaskRunnable> queue =
-                new DelayQueue<>();
+        DelayQueue<DelayedTaskRunnable> queue = new DelayQueue<>();
         for (int i = 0; i < 20; i++) {
             queue.put(new DelayedTaskRunnable(random.nextInt(5000)));
         }

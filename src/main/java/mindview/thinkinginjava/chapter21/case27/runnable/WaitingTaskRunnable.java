@@ -24,7 +24,6 @@ public class WaitingTaskRunnable implements Runnable {
         } catch (InterruptedException e) {
             System.out.println(this + " interrupted");
         }
-
     }
 
     @Override

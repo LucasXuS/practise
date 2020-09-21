@@ -67,6 +67,7 @@ public class DelayedTaskRunnable implements Runnable, Delayed {
 
         @Override
         public void run() {
+            System.out.println();
             for (DelayedTaskRunnable runnable : sequence){
                 System.out.print(runnable.summary() + " ");
             }
