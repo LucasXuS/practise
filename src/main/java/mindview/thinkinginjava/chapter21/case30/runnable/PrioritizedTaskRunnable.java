@@ -15,7 +15,7 @@ public class PrioritizedTaskRunnable implements Runnable, Comparable<Prioritized
     private static int counter = 0;
     private final int id = counter++;
     private Random random = new Random(47);
-    protected List<PrioritizedTaskRunnable> sequence = new ArrayList<>();
+    protected static List<PrioritizedTaskRunnable> sequence = new ArrayList<>();
     private final int priority;
 
 

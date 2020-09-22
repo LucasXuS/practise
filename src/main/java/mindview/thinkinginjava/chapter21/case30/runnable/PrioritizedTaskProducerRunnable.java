@@ -25,6 +25,7 @@ public class PrioritizedTaskProducerRunnable implements Runnable {
     public void run() {
         for (int i = 0; i < 20; i++) {
             queue.add(new PrioritizedTaskRunnable(random.nextInt(10)));
+            //System.out.println(queue);
             Thread.yield();
         }
 
@@ -37,6 +38,7 @@ public class PrioritizedTaskProducerRunnable implements Runnable {
             for (int i = 1; i < 10; i++) {
                 queue.add(new PrioritizedTaskRunnable(i));
             }
+            queue.add(new PrioritizedTaskRunnable.EndSentinelRunnable(executorService));
         } catch (InterruptedException e) {
 
         }

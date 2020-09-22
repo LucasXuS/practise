@@ -1,9 +1,9 @@
-package mindview.thinkinginjava.chapter21.case32.runnable;
+package mindview.thinkinginjava.chapter21.case33;
 
 /**
  * @author <a href="mailto:xusong@gtmap.cn">xusong</a>
  * @version 1.0, ${date}
  * @description: ${todo}
  */
-public class CheckoutTask<T> {
+public class ExchangerDemo {
 }

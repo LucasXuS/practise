@@ -20,6 +20,7 @@ public class PrioritizedTaskConsumerRunnable implements Runnable {
         try {
             while (!Thread.interrupted()){
                 queue.take().run();
+                //System.out.println(queue);
             }
         } catch (InterruptedException e) {
         }
