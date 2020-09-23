@@ -1,4 +1,4 @@
-package net.mindview.util;
+package mindview.thinkinginjava.util;
 
 import java.util.LinkedHashMap;
 import java.util.List;

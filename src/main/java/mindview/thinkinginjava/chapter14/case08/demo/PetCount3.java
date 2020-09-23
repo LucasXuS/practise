@@ -4,6 +4,7 @@ package mindview.thinkinginjava.chapter14.case08.demo;
 import mindview.thinkinginjava.chapter14.case08.creator.LiteralPetCreator;
 import mindview.thinkinginjava.chapter14.case08.factory.PetsFactory;
 import mindview.thinkinginjava.chapter14.case08.pet.Pet;
+import mindview.thinkinginjava.util.MapData;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -12,7 +13,7 @@ public class PetCount3 {
 
     static class PetCounter extends LinkedHashMap<Class<? extends Pet>, Integer> {
         public PetCounter() {
-            super(net.mindview.util.MapData.map(LiteralPetCreator.allTypes, 0));
+            super(MapData.map(LiteralPetCreator.allTypes, 0));
         }
 
         public void count(Pet pet) {
