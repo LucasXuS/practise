@@ -30,8 +30,8 @@ public class P15ThreeSum {
         int[] nums = new int[]{-1, 0, 1, 2, -1, -4};
         List<List<Integer>> lists = solution.threeSum2(nums);
         StringBuilder stringBuilder = new StringBuilder();
-        for(List<Integer> list : lists){
-            for (Integer a : list){
+        for (List<Integer> list : lists) {
+            for (Integer a : list) {
                 stringBuilder.append(a).append(",");
             }
             stringBuilder.append("\n");
@@ -44,7 +44,7 @@ public class P15ThreeSum {
         public List<List<Integer>> threeSum(int[] nums) {
             Arrays.sort(nums);
             List<List<Integer>> lists = new ArrayList<>();
-            for(int i = 0; i < nums.length; i++){
+            for (int i = 0; i < nums.length; i++) {
                 int target = 0 - nums[i];
                 Map<Integer, Integer> map = new HashMap<>();
                 for (int j = i + 1; j < nums.length; j++) {
@@ -54,42 +54,43 @@ public class P15ThreeSum {
                         map.put(nums[j], j);
                     } else {
                         boolean exist = false;
-                        for(List<Integer> temp : lists){
-                            if(temp.get(0) == nums[i] && temp.get(1) == other){
+                        for (List<Integer> temp : lists) {
+                            if (temp.get(0) == nums[i] && temp.get(1) == other) {
                                 exist = true;
                             }
                         }
-                        if(!exist){
+                        if (!exist) {
                             list.add(nums[i]);
                             list.add(other);
                             list.add(nums[j]);
                         }
                     }
-                    if(list.size() > 0){
+                    if (list.size() > 0) {
                         lists.add(list);
                     }
                 }
             }
             return lists;
         }
+
         public List<List<Integer>> threeSum2(int[] nums) {
             Arrays.sort(nums);
             List<List<Integer>> lists = new ArrayList<>();
-            for(int i = 0; i < nums.length; i++){
-                if(i > 0 && nums[i] == nums[i - 1]){
+            for (int i = 0; i < nums.length; i++) {
+                if (i > 0 && nums[i] == nums[i - 1]) {
                     continue;
                 }
                 int target = 0 - nums[i];
                 int m = i + 1;
                 int n = nums.length - 1;
 
-                while (m < n){
+                while (m < n) {
                     int sum = nums[m] + nums[n];
-                    if(sum < target){
+                    if (sum < target) {
                         m++;
-                    }else if(sum > target){
+                    } else if (sum > target) {
                         n--;
-                    }else {
+                    } else {
                         List<Integer> list = new ArrayList<>();
                         list.add(nums[i]);
                         list.add(nums[m]);

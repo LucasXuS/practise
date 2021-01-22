@@ -35,19 +35,33 @@ public class P14LongestCommonPrefix {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public String longestCommonPrefix(String[] strs) {
-            String lcp = "";
-            if (strs != null && strs.length > 0) {
-                for (int i = 0; i < strs.length; i++) {
-                    String s = strs[i];
-                    if (i == 0) {
-                        lcp = s;
-                    } else {
-                        lcp = findLCP(lcp, s);
+//            String lcp = "";
+//            if (strs != null && strs.length > 0) {
+//                for (int i = 0; i < strs.length; i++) {
+//                    String s = strs[i];
+//                    if (i == 0) {
+//                        lcp = s;
+//                    } else {
+//                        lcp = findLCP(lcp, s);
+//                    }
+//                }
+//            }
+//            return lcp;       S
+            if(strs.length == 0){
+                return "";
+            }
+            String s = strs[0];
+            if(strs.length > 1){
+                for (int i = 1; i < strs.length; i++){
+                    int index = 0;
+                    while (index < Math.min(s.length(), strs[i].length())
+                            && s.charAt(index) == strs[i].charAt(index)){
+                        index++;
                     }
+                    s = s.substring(0, index);
                 }
             }
-            return lcp;
-
+            return s;
         }
     }
     //leetcode submit region end(Prohibit modification and deletion)

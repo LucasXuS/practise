@@ -59,7 +59,7 @@ public class P20ValidParentheses {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public boolean isValid(String s) {
-            Stack<Character> stack = new Stack<>();
+            Stack<Character> stack = new Stack<Character>();
             for (Character c : s.toCharArray()) {
                 if(c == '(' || c == '{' || c == '['){
                     stack.push(c);
